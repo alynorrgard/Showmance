@@ -1,25 +1,27 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default class SelectFirstMood extends React.Component {
   render() {
+    const { navigate } = this.props.navigation;
+
     return (
       <View style={styles.mainView}>
-        <Text style={styles.mainText}>TEST VIEW</Text>
+        <Text style={styles.mainText}>
+          What kinds of TV shows are you in the mood to watch?
+        </Text>
         <View style={styles.buttonView}>
           <Button
-            onPress={() => {
-              Alert.alert('You tapped the happy button!');
-            }}
+            onPress={() => navigate('Second', { moods: ['chill', 'funny'] })}
             title="happy"
             color="black"
           />
         </View>
         <View style={styles.buttonView}>
           <Button
-            onPress={() => {
-              Alert.alert('You tapped the sad button!');
-            }}
+            onPress={() =>
+              navigate('Second', { moods: ['documentary', 'romance'] })
+            }
             title="sad"
             color="black"
           />
@@ -39,8 +41,8 @@ const styles = StyleSheet.create({
   mainText: {
     padding: 20,
     color: 'fuchsia',
-    fontWeight: 'bold',
-    fontSize: 50,
+    fontSize: 20,
+    textAlign: 'center',
   },
   buttonView: {
     backgroundColor: 'fuchsia',

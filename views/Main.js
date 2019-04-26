@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import SelectFirstMood from './SelectFirstMood';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
 export default class Main extends React.Component {
   // static navigationOptions = {
