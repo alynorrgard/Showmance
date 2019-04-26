@@ -1,26 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import SelectFirstMood from './SelectFirstMood';
 
-export default class SelectFirstMood extends React.Component {
+export default class Main extends React.Component {
+  // static navigationOptions = {
+  //   title: 'Welcome',
+  // };
+
   render() {
+    const { navigate } = this.props.navigation;
+
     return (
       <View style={styles.mainView}>
-        <Text style={styles.mainText}>TEST VIEW</Text>
+        <Text style={styles.mainText}>Showmance</Text>
         <View style={styles.buttonView}>
           <Button
-            onPress={() => {
-              Alert.alert('You tapped the happy button!');
-            }}
-            title="happy"
-            color="black"
-          />
-        </View>
-        <View style={styles.buttonView}>
-          <Button
-            onPress={() => {
-              Alert.alert('You tapped the sad button!');
-            }}
-            title="sad"
+            onPress={() => navigate('First')}
+            title="CHOOSE YOUR MOOD"
             color="black"
           />
         </View>
@@ -46,6 +42,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'fuchsia',
     borderRadius: 30,
     padding: 10,
-    margin: 5,
   },
 });
