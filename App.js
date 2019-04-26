@@ -11,6 +11,16 @@ const MainNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'Main',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#141417',
+      },
+      headerTintColor: '#D100AE',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+      headerBackTitle: null,
+    },
   }
 );
 

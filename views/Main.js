@@ -1,22 +1,23 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, StatusBar, Text, Button, StyleSheet } from 'react-native';
 
 export default class Main extends React.Component {
-  // static navigationOptions = {
-  //   title: 'Welcome',
-  // };
+  static navigationOptions = {
+    header: null,
+  };
 
   render() {
     const { navigate } = this.props.navigation;
 
     return (
       <View style={styles.mainView}>
+        {/* <StatusBar barStyle="light-content" /> */}
         <Text style={styles.mainText}>Showmance</Text>
         <View style={styles.buttonView}>
           <Button
             onPress={() => navigate('First')}
             title="CHOOSE YOUR MOOD"
-            color="black"
+            color="#EAEAEB"
           />
         </View>
       </View>
@@ -33,12 +34,12 @@ const styles = StyleSheet.create({
   },
   mainText: {
     padding: 20,
-    color: 'fuchsia',
+    color: '#D100AE',
     fontWeight: 'bold',
     fontSize: 50,
   },
   buttonView: {
-    backgroundColor: 'fuchsia',
+    backgroundColor: '#A2A3A1',
     borderRadius: 30,
     padding: 10,
   },

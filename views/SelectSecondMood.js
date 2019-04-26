@@ -1,7 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 
 export default class SelectSecondMood extends React.Component {
+  static navigationOptions = {
+    title: 'Showmance',
+    headerStyle: {
+      backgroundColor: '#141417',
+    },
+    headerTintColor: '#D100AE',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+
   render() {
     const { navigation } = this.props;
     const moods = navigation.getParam('moods', 'N/A');
@@ -18,7 +29,7 @@ export default class SelectSecondMood extends React.Component {
                 Alert.alert(`You tapped the ${mood} button!`);
               }}
               title={mood}
-              color="black"
+              color="#EAEAEB"
             />
           </View>
         ))}
@@ -36,12 +47,12 @@ const styles = StyleSheet.create({
   },
   mainText: {
     padding: 20,
-    color: 'fuchsia',
+    color: '#D100AE',
     fontSize: 20,
     textAlign: 'center',
   },
   buttonView: {
-    backgroundColor: 'fuchsia',
+    backgroundColor: '#A2A3A1',
     borderRadius: 30,
     padding: 10,
     margin: 5,

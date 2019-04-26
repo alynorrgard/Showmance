@@ -1,7 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
 export default class SelectFirstMood extends React.Component {
+  static navigationOptions = {
+    title: 'Showmance',
+  };
+
   render() {
     const { navigate } = this.props.navigation;
 
@@ -14,7 +18,7 @@ export default class SelectFirstMood extends React.Component {
           <Button
             onPress={() => navigate('Second', { moods: ['chill', 'funny'] })}
             title="happy"
-            color="black"
+            color="#EAEAEB"
           />
         </View>
         <View style={styles.buttonView}>
@@ -23,7 +27,7 @@ export default class SelectFirstMood extends React.Component {
               navigate('Second', { moods: ['documentary', 'romance'] })
             }
             title="sad"
-            color="black"
+            color="#EAEAEB"
           />
         </View>
       </View>
@@ -40,12 +44,12 @@ const styles = StyleSheet.create({
   },
   mainText: {
     padding: 20,
-    color: 'fuchsia',
+    color: '#D100AE',
     fontSize: 20,
     textAlign: 'center',
   },
   buttonView: {
-    backgroundColor: 'fuchsia',
+    backgroundColor: '#A2A3A1',
     borderRadius: 30,
     padding: 10,
     margin: 5,
