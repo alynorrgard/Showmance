@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import showmance from '../secrets';
 
 export default class SelectFirstMood extends React.Component {
   static navigationOptions = {
@@ -8,6 +9,11 @@ export default class SelectFirstMood extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
+    console.log(
+      fetch(
+        `https://api.themoviedb.org/3/search/keyword?api_key=${showmance}&query=happy`
+      )
+    );
 
     return (
       <View style={styles.mainView}>
@@ -16,7 +22,9 @@ export default class SelectFirstMood extends React.Component {
         </Text>
         <View style={styles.buttonView}>
           <Button
-            onPress={() => navigate('Second', { moods: ['chill', 'funny'] })}
+            onPress={() =>
+              navigate('Second', { moods: ['motivational', 'funny'] })
+            }
             title="happy"
             color="#EAEAEB"
           />
