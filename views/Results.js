@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
+import SingleResult from './SingleResult';
 
 export default class Results extends React.Component {
   state = {
@@ -38,24 +39,6 @@ export default class Results extends React.Component {
     }
   }
 
-  renderResult = result => {
-    return (
-      <View key={result.name} style={styles.resultView}>
-        <Text
-          style={{
-            color: '#EAEAEB',
-            fontWeight: 'bold',
-            fontSize: 20,
-          }}
-        >
-          {result.name}
-        </Text>
-        <Text style={styles.resultText}>Genre: {result.genre}</Text>
-        <Text style={styles.resultText}>Seasons: {result.seasons}</Text>
-      </View>
-    );
-  };
-
   render() {
     const { navigation } = this.props;
     const mood1 = navigation.getParam('mood1', 'N/A');
@@ -63,7 +46,6 @@ export default class Results extends React.Component {
     const { results, loading, error } = this.state;
 
     if (loading) {
-      console.log('LOADING???');
       return (
         <View style={styles.mainView}>
           <Text style={styles.mainText}>Fetching results...</Text>
@@ -86,7 +68,9 @@ export default class Results extends React.Component {
           Here are some popular shows that might suit your mood!
         </Text>
         <ScrollView>
-          {results.map(result => this.renderResult(result))}
+          {results.map(result => (
+            <SingleResult key={result.name} result={result} />
+          ))}
         </ScrollView>
       </View>
     );
@@ -105,15 +89,5 @@ const styles = StyleSheet.create({
     color: '#D100AE',
     fontSize: 20,
     textAlign: 'center',
-  },
-  resultView: {
-    backgroundColor: '#A2A3A1',
-    borderRadius: 20,
-    padding: 20,
-    margin: 5,
-  },
-  resultText: {
-    color: '#EAEAEB',
-    fontSize: 15,
   },
 });
