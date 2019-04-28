@@ -25,6 +25,7 @@ export default class SelectSecondMood extends React.Component {
   render() {
     const { navigation } = this.props;
     const usedTags = navigation.getParam('usedTags', 'N/A');
+    const mood1 = navigation.getParam('mood1', 'N/A');
     const leftoverTags = this.filterUsedTags(tags, usedTags);
     const moreRandomTags = this.getMoreRandomTags(leftoverTags);
 
@@ -37,9 +38,9 @@ export default class SelectSecondMood extends React.Component {
           {moreRandomTags.map(tag => (
             <View key={tag} style={styles.buttonView}>
               <Button
-                onPress={() => {
-                  Alert.alert(`You tapped the ${tag} button!`);
-                }}
+                onPress={() =>
+                  navigation.navigate('Results', { mood1: mood1, mood2: tag })
+                }
                 title={tag}
                 color="#EAEAEB"
               />

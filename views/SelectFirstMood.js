@@ -30,7 +30,9 @@ export default class SelectFirstMood extends React.Component {
           {randomTags.map(tag => (
             <View key={tag} style={styles.buttonView}>
               <Button
-                onPress={() => navigate('Second', { usedTags: randomTags })}
+                onPress={() =>
+                  navigate('Second', { usedTags: randomTags, mood1: tag })
+                }
                 title={tag}
                 color="#EAEAEB"
               />
