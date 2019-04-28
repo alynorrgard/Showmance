@@ -1,5 +1,6 @@
 import React from 'react';
-import firebase from 'firebase';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 import {
   View,
   Text,
@@ -7,40 +8,39 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-const database = firebase.firestore();
 
-export default class SelectSecondMood extends React.Component {
-  static navigationOptions = {
-    title: 'Showmance',
-  };
-
+export default class Results extends React.Component {
   state = {
     loading: true,
     error: false,
     results: [],
   };
 
-  componentDidMount = async () => {
+  static navigationOptions = {
+    title: 'Showmance',
+  };
+
+  async componentDidMount() {
     try {
       let results = [];
-      const response = await firebase
+      let response = await firebase
         .firestore()
         .collection('tvshows')
-        .doc()
         .get();
       response.docs.forEach(doc => {
         results.push(doc.data());
       });
+      console.log('RESULTS:', results);
 
       this.setState({ loading: false, results });
     } catch (err) {
       this.setState({ loading: false, error: true });
     }
-  };
+  }
 
-  renderResult = ({ name, genre, seasons }) => {
+  renderResult = result => {
     return (
-      <View style={styles.resultView}>
+      <View key={result.name} style={styles.resultView}>
         <Text
           style={{
             color: '#EAEAEB',
@@ -48,10 +48,10 @@ export default class SelectSecondMood extends React.Component {
             fontSize: 20,
           }}
         >
-          {name}
+          {result.name}
         </Text>
-        <Text style={styles.resultText}>Genre: {genre}</Text>
-        <Text style={styles.resultText}>Seasons: {seasons}</Text>
+        <Text style={styles.resultText}>Genre: {result.genre}</Text>
+        <Text style={styles.resultText}>Seasons: {result.seasons}</Text>
       </View>
     );
   };
@@ -63,6 +63,7 @@ export default class SelectSecondMood extends React.Component {
     const { results, loading, error } = this.state;
 
     if (loading) {
+      console.log('LOADING???');
       return (
         <View style={styles.mainView}>
           <Text style={styles.mainText}>Fetching results...</Text>
@@ -84,8 +85,8 @@ export default class SelectSecondMood extends React.Component {
         <Text style={styles.mainText}>
           Here are some popular shows that might suit your mood!
         </Text>
-        <ScrollView style={styles.resultView}>
-          {results.map(result => this.renderResult)}
+        <ScrollView>
+          {results.map(result => this.renderResult(result))}
         </ScrollView>
       </View>
     );
@@ -108,7 +109,8 @@ const styles = StyleSheet.create({
   resultView: {
     backgroundColor: '#A2A3A1',
     borderRadius: 20,
-    padding: 30,
+    padding: 20,
+    margin: 5,
   },
   resultText: {
     color: '#EAEAEB',
