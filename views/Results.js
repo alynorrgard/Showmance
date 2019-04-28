@@ -23,13 +23,21 @@ export default class Results extends React.Component {
 
   async componentDidMount() {
     try {
+      const { navigation } = this.props;
+      const mood1 = navigation.getParam('mood1', 'N/A');
+      const mood2 = navigation.getParam('mood2', 'N/A');
       let results = [];
-      let response = await firebase
+      let allshows = await firebase
         .firestore()
         .collection('tvshows')
         .get();
-      response.docs.forEach(doc => {
-        results.push(doc.data());
+      allshows.docs.forEach(show => {
+        if (
+          show.data().tags.includes(mood1) ||
+          show.data().tags.includes(mood2)
+        ) {
+          results.push(show.data());
+        }
       });
       console.log('RESULTS:', results);
 
@@ -40,9 +48,6 @@ export default class Results extends React.Component {
   }
 
   render() {
-    const { navigation } = this.props;
-    const mood1 = navigation.getParam('mood1', 'N/A');
-    const mood2 = navigation.getParam('mood2', 'N/A');
     const { results, loading, error } = this.state;
 
     if (loading) {
