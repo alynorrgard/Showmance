@@ -1,45 +1,92 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, Alert } from 'react-native';
-import { tags } from '../server/db/tags';
+import firebase from 'firebase';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+const database = firebase.firestore();
 
 export default class SelectSecondMood extends React.Component {
   static navigationOptions = {
     title: 'Showmance',
   };
 
+  state = {
+    loading: true,
+    error: false,
+    results: [],
+  };
+
+  componentDidMount = async () => {
+    try {
+      let results = [];
+      const response = await firebase
+        .firestore()
+        .collection('tvshows')
+        .doc()
+        .get();
+      response.docs.forEach(doc => {
+        results.push(doc.data());
+      });
+
+      this.setState({ loading: false, results });
+    } catch (err) {
+      this.setState({ loading: false, error: true });
+    }
+  };
+
+  renderResult = ({ name, genre, seasons }) => {
+    return (
+      <View style={styles.resultView}>
+        <Text
+          style={{
+            color: '#EAEAEB',
+            fontWeight: 'bold',
+            fontSize: 20,
+          }}
+        >
+          {name}
+        </Text>
+        <Text style={styles.resultText}>Genre: {genre}</Text>
+        <Text style={styles.resultText}>Seasons: {seasons}</Text>
+      </View>
+    );
+  };
+
   render() {
     const { navigation } = this.props;
     const mood1 = navigation.getParam('mood1', 'N/A');
     const mood2 = navigation.getParam('mood2', 'N/A');
-    const result = {
-      name: 'Breaking Bad',
-      imageUrl:
-        'https://m.media-amazon.com/images/M/MV5BMjhiMzgxZTctNDc1Ni00OTIxLTlhMTYtZTA3ZWFkODRkNmE2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg',
-      genre: 'Drama',
-      seasons: 5,
-      viewingMethod: ['Netflix', 'Amazon Prime'],
-    };
+    const { results, loading, error } = this.state;
+
+    if (loading) {
+      return (
+        <View style={styles.mainView}>
+          <Text style={styles.mainText}>Fetching results...</Text>
+          <ActivityIndicator animating={true} />
+        </View>
+      );
+    }
+
+    if (error) {
+      return (
+        <View style={styles.mainView}>
+          <Text style={styles.mainText}>Failed to load results!</Text>
+        </View>
+      );
+    }
 
     return (
       <View style={styles.mainView}>
         <Text style={styles.mainText}>
-          Here are some popular shows that would suit your mood!
+          Here are some popular shows that might suit your mood!
         </Text>
-        <View style={styles.resultView}>
-          <Text
-            style={{
-              color: '#EAEAEB',
-              fontWeight: 'bold',
-              fontSize: 20,
-            }}
-          >
-            {result.name}
-          </Text>
-          <Text style={styles.resultText}>
-            Where to watch: {result.viewingMethod[1]}
-          </Text>
-          <Text style={styles.resultText}>Moods: {`${mood1}, ${mood2}`}</Text>
-        </View>
+        <ScrollView style={styles.resultView}>
+          {results.map(result => this.renderResult)}
+        </ScrollView>
       </View>
     );
   }
@@ -62,7 +109,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#A2A3A1',
     borderRadius: 20,
     padding: 30,
-    // margin: 5,
   },
   resultText: {
     color: '#EAEAEB',
