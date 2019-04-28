@@ -5,15 +5,24 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  DB_URL,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  MSG_SENDER_ID,
+} from '../secrets';
+
 // Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyDEo7vAwQdzChrItWXIP84g-sFHKZygVwc',
-  authDomain: 'showmance-65397.firebaseapp.com',
-  databaseURL: 'https://showmance-65397.firebaseio.com',
-  projectId: 'showmance-65397',
-  storageBucket: 'showmance-65397.appspot.com',
-  messagingSenderId: '564383299443',
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  databaseURL: DB_URL,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MSG_SENDER_ID,
 };
 
 // Initialize Firebase
-export const defaultProject = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);

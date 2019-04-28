@@ -2,7 +2,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Main from './views/Main';
 import SelectFirstMood from './views/SelectFirstMood';
 import SelectSecondMood from './views/SelectSecondMood';
-import defaultProject from './server/firebase';
+import './server/firebase';
 
 const MainNavigator = createStackNavigator(
   {

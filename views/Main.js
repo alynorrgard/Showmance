@@ -11,7 +11,7 @@ export default class Main extends React.Component {
 
     return (
       <View style={styles.mainView}>
-        {/* <StatusBar barStyle="light-content" /> */}
+        <StatusBar barStyle="light-content" />
         <Text style={styles.mainText}>Showmance</Text>
         <View style={styles.buttonView}>
           <Button
