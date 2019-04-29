@@ -1,20 +1,20 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, Alert } from 'react-native';
-import { tags } from '../server/db/tags';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { themeTags } from '../server/db/tags';
 
 export default class SelectSecondMood extends React.Component {
   static navigationOptions = {
     title: 'Showmance',
   };
 
-  filterUsedTags(arr, used) {
-    arr.filter(tag => used.includes(tag));
-    return arr;
-  }
+  // filterUsedTags(arr, used) {
+  //   arr.filter(tag => used.includes(tag));
+  //   return arr;
+  // }
 
-  getMoreRandomTags(arr) {
+  getRandomThemeTags(arr) {
     let randomArr = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 15; i++) {
       let randomIndex = Math.floor(Math.random() * arr.length);
       randomArr.push(arr[randomIndex]);
       arr.splice(randomIndex, 1);
@@ -24,10 +24,10 @@ export default class SelectSecondMood extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    const usedTags = navigation.getParam('usedTags', 'N/A');
+    // const usedTags = navigation.getParam('usedTags', 'N/A');
     const mood1 = navigation.getParam('mood1', 'N/A');
-    const leftoverTags = this.filterUsedTags(tags, usedTags);
-    const moreRandomTags = this.getMoreRandomTags(leftoverTags);
+    // const leftoverTags = this.filterUsedTags(tags, usedTags);
+    const randomThemeTags = this.getRandomThemeTags(themeTags);
 
     return (
       <View style={styles.mainView}>
@@ -35,7 +35,7 @@ export default class SelectSecondMood extends React.Component {
           What kinds of TV shows are you in the mood to watch?
         </Text>
         <View style={styles.buttonGroup}>
-          {moreRandomTags.map(tag => (
+          {randomThemeTags.map(tag => (
             <View key={tag} style={styles.buttonView}>
               <Button
                 onPress={() =>

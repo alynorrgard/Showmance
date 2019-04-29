@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-} from 'react-native';
+import { View, Text, Image, ActivityIndicator, StyleSheet } from 'react-native';
 
 export default class SingleResult extends React.Component {
   static navigationOptions = {
@@ -19,7 +12,12 @@ export default class SingleResult extends React.Component {
 
     return (
       <View key={result.name} style={styles.resultView}>
-        <Image source={image} style={{ width: 100, height: 50 }} />
+        <Image
+          source={image}
+          style={{ width: 300, height: 150 }}
+          PlaceholderContent={<ActivityIndicator />}
+          alignSelf="center"
+        />
         <Text
           style={{
             color: '#EAEAEB',

@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import { tags } from '../server/db/tags';
+import { moodTags } from '../server/db/tags';
 
 export default class SelectFirstMood extends React.Component {
   static navigationOptions = {
     title: 'Showmance',
   };
 
-  getRandomTags(arr) {
+  getRandomMoodTags(arr) {
     let randomArr = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 15; i++) {
       let randomIndex = Math.floor(Math.random() * arr.length);
       randomArr.push(arr[randomIndex]);
       arr.splice(randomIndex, 1);
@@ -19,7 +19,7 @@ export default class SelectFirstMood extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    const randomTags = this.getRandomTags(tags);
+    const randomMoodTags = this.getRandomMoodTags(moodTags);
 
     return (
       <View style={styles.mainView}>
@@ -27,11 +27,11 @@ export default class SelectFirstMood extends React.Component {
           What kinds of TV shows are you in the mood to watch?
         </Text>
         <View style={styles.buttonGroup}>
-          {randomTags.map(tag => (
+          {randomMoodTags.map(tag => (
             <View key={tag} style={styles.buttonView}>
               <Button
                 onPress={() =>
-                  navigate('Second', { usedTags: randomTags, mood1: tag })
+                  navigate('Second', { usedTags: randomMoodTags, mood1: tag })
                 }
                 title={tag}
                 color="#EAEAEB"

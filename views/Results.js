@@ -33,7 +33,7 @@ export default class Results extends React.Component {
         .get();
       allshows.docs.forEach(show => {
         if (
-          show.data().tags.includes(mood1) ||
+          show.data().tags.includes(mood1) &&
           show.data().tags.includes(mood2)
         ) {
           results.push(show.data());
@@ -49,6 +49,9 @@ export default class Results extends React.Component {
 
   render() {
     const { results, loading, error } = this.state;
+    const { navigation } = this.props;
+    const mood1 = navigation.getParam('mood1', 'N/A');
+    const mood2 = navigation.getParam('mood2', 'N/A');
 
     if (loading) {
       return (
@@ -69,6 +72,9 @@ export default class Results extends React.Component {
 
     return (
       <View style={styles.mainView}>
+        <Text style={styles.moodText}>
+          {mood1} + {mood2}
+        </Text>
         <Text style={styles.mainText}>
           Here are some popular shows that might suit your mood!
         </Text>
@@ -88,6 +94,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  moodText: {
+    color: '#D100AE',
+    padding: 20,
+    paddingBottom: 0,
+    fontSize: 30,
+    fontWeight: 'bold',
   },
   mainText: {
     padding: 20,
